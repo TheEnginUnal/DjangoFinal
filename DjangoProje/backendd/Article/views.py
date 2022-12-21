@@ -1,26 +1,31 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,get_object_or_404
+from .models import Product,Category 
 # Create your views here.
+
+
 def index(request):
-    return render(request,"index.html")
+   return render(request,"index.html")
 
-def login(request):
-    return render(request,"login.html")
 
-def signup(request):
-    return render(request,"signup.html")
+def shopcart(request):
+    return render(request,"shopcart.html")
 
-def myaccount(request):
-    return render(request,"myaccount.html")
+def categories(request):
+    return {
+        'categories' : Category.objects.all()
+    }
+   
+def products(request):
+    return {
+        'products' : Product.objects.all()
+    }
+    
+def product_details(request, slug):
+    product = get_object_or_404(Product ,slug = slug, in_stock = True)
+    return render(request, 'user/details.html', {'products' : product})
 
-def brand(request):
-    return render(request,"brand.html")
 
-def shoes(request):
-    return render(request,"shoes.html")
-
-def jewellery(request):
-    return render(request,"jewellery.html")
-
-def kids(request):
-    return render(request,"kids.html")
+def category_list(request, category_slug):
+    category = get_object_or_404(Category, slug =  category_slug)
+    products = Product.objects.filter( category = category)
+    return render(request, 'product/category.html', context = {'category':category, 'products' : products})
