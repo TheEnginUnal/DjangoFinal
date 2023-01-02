@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
+<div class = "container">
 <div class="row">
     <div class="col-md-12">
         <div id="jewellery" class="Jewellery-bg">
@@ -16,10 +16,10 @@
                         <h4>Price $<span class="nolmal">100</span></h4>
 
                     </div>
-                    <a class="buynow" href="#">Buy now</a>
+                    <a class="buynow" href="{{ p.get_absolute_url }}">Buy now</a>
                 </div>
                 {% endfor %}
-              
+            
                
                 
                 
@@ -27,6 +27,7 @@
         </div>
        
     </div>
+</div>
 </div>
 
 {% endblock content %}

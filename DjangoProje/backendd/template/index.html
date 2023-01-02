@@ -58,7 +58,7 @@
                                     
                                     {% for c in categories  %}
                                     <li> 
-                                        <a href = '#{{ c.categoryName}}'> {{ c.categoryName |title }}</a>
+                                        <a href = '{{ c.get_absolute_url}}'> {{ c.categoryName |title }}</a>
                 
                 
                                     </li>
@@ -72,196 +72,32 @@
 
                     <!-- news brand -->
                     <div id="T-shirt"  class="brand-bg">
-                        <h3>New T-shirt</h3>
+                        <h3>CATEGORIES</h3>
                         <div class="row">
+                            {% for c in categories  %}
+                                  
+                                    
+                                  
                             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
                                 <div class="brand-box">
-                                    <h5>Sale</h5>
-                                    <i><img src="{% static 'icon/p1.png' %}"/>
+                                    <h5>{{ c.categoryName | title}}</h5>
+                                    <i><img src="{{ c.image.url }}"/>
                                 </i>
                                     <h4>Price $<span class="nolmal">100</span></h4>
 
                                 </div>
-                                <a class="buynow" href="#">Buy now</a>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                                <div class="brand-box">
-                                    <i><img src="{% static 'icon/p2.png' %}"/></i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-                                </div>
-                                <a class="buynow" href="#">Buy now</a>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                <div class="brand-box">
-                                    <i><img src="{% static 'icon/p1.png' %}"/></i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-                                </div>
-                                <a class="buynow" href="#">Buy now</a>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                <div class="brand-box">
-                                    <i><img src="{% static 'icon/p4.png' %}"/></i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-                                </div>
-                                <a class="buynow" href="#">Buy now</a>
-                            </div>
+                                <a class="buynow" href="{{ c.get_absolute_url }}">See More</a>
+                            </div>  
+                            
+                            {% endfor %}
+                            
+                            
+                            
                         </div>
                     </div>
-                    <a class="seemore" href="{% url 'brand' %}">See more</a>
+                    <a class="seemore" href="{% url 'product:brand' %}">See more</a>
                     <!-- end news brand -->
-
-                    <!-- news shoes -->
-                    <div id="Shoes" class="shoes-bg">
-                        <h3>New shoes</h3>
-                        <div class="row">
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                                <div class="shoes-box">
-                                    <h5>Sale</h5>
-                                    <i><img src="{% static 'icon/s1.png' %}"/>
-                                </i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-
-                                </div>
-                                <a class="buynow" href="#">Buy now</a>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                                <div class="shoes-box">
-                                    <i><img src="{% static 'icon/s2.png' %}"/></i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-                                </div>
-                                <a class="buynow" href="#">Buy now</a>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                <div class="shoes-box">
-                                    <i><img src="{% static 'icon/s3.png' %}"/></i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-                                </div>
-                                <a class="buynow" href="#">Buy now</a>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                <div class="shoes-box">
-                                    <i><img src="{% static 'icon/s4.png' %}"/></i>
-                                    <h4>Price $<span class="nolmal">100</span></h4>
-                                </div>
-                                <a class="buynow" href="#">Buy now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="seemore" href="{% url 'shoes' %}">See more</a>
                 </div>
-
-            </div>
-        </div>
-        <!-- end news shoes -->
- 
-    <!-- end Categories -->
-    
-    <section>
-        <!--  save -->
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="save">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                            <div class="save_box">
-                                <h3>save up to 50%</h3>
-                                <a href="#">Buy now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end save -->
-    </section>
-
-    <!-- news Jewellery -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="Jewellery" class="Jewellery-bg">
-                    <h3>New Jewellery</h3>
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                            <div class="Jewellery-box">
-                                <h5>Sale</h5>
-                                <i><img src="{% static 'icon/j1.png' %}"/>
-                                </i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-                            <div class="Jewellery-box">
-                                <i><img src="{% static 'icon/j2.png' %}"/></i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                            <div class="Jewellery-box">
-                                <i><img src="{% static 'icon/j3.png' %}"/></i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                            <div class="Jewellery-box">
-                                <i><img src="{% static 'icon/j4.png' %}"/></i>
-                                <h4>Price $<span class="nolmal">100</span></h4>
-                            </div>
-                            <a class="buynow" href="#">Buy now</a>
-                        </div>
-                    </div>
-                </div>
-                <a class="seemore" href="{% url 'jewellery' %}">See more</a>
-            </div>
-        </div>
-    </div>
-    <!-- end news Jewellery -->
-
-    <!-- news Kids -->
-    <div class="container">
-        <div id="Kids" class="brand-bg">
-          <h3>New Kids and Babies</h3>
-          <div class="row">
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-              <div class="brand-box">
-                <h5>Sale</h5>
-                <i><img src="{% static 'icon/kids1.png' %}" /> </i>
-                <h4>Price $<span class="nolmal">100</span></h4>
-              </div>
-              <a class="buynow" href="#">Buy now</a>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
-              <div class="brand-box">
-                <i><img src="{% static 'icon/kids1.png' %}" /></i>
-                <h4>Price $<span class="nolmal">100</span></h4>
-              </div>
-              <a class="buynow" href="#">Buy now</a>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-              <div class="brand-box">
-                <i><img src="{% static 'icon/kids1.png' %}" /></i>
-                <h4>Price $<span class="nolmal">100</span></h4>
-              </div>
-              <a class="buynow" href="#">Buy now</a>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-              <div class="brand-box">
-                <i><img src="{% static 'icon/kids1.png' %}" /></i> <br><br><br><br>
-                <h4>Price $<span class="nolmal">100</span></h4>
-              </div>
-              <a class="buynow" href="#">Buy now</a>
-            </div>
-          </div>
-        </div>
-      </div><a class="seemore" href="{% url 'kids' %}">See more</a>
-      
-    <!-- end news Kids -->
+                   
 
 {% endblock content %}

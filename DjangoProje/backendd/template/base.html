@@ -38,43 +38,13 @@
     
 </head>
 <body> 
+    {% csrf_token %} 
     <!-- loader  -->
     <div class="loader_bg">
         <div class="loader"><img src="{% static 'images/loading.gif' %}" alt="#" /></div>
     </div>
 
-    <div class="wrapper"> 
-
-        <!-- end loader -->
-        <div class="sidebar">
-            <!-- Sidebar  -->
-            <nav id="sidebar">
-
-                <div id="dismiss">
-                    <i class="fa fa-arrow-left"></i>
-                </div>
-
-                <ul class="list-unstyled components">
-
-                    <li class="active">
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="#brand">Brands</a>
-                    </li>
-                    <li>
-                        <a href="#shoes">Shoes</a>
-                    </li>
-                    <li>
-                        <a href="#jewellery">Jewellery</a>
-                    </li>
-                    <li>
-                        <a href="#kids">Kids and Babies</a>
-                    </li>
-                </ul>
-
-            </nav>
-        </div>
+    
  
 {% include 'header.html' %}
     
