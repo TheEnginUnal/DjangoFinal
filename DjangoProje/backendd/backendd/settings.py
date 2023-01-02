@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    
+    'django.contrib.staticfiles', 
+      
     'Article',
     'user.apps.UserConfig',
-    'product.apps.ProductConfig',  
+    'product.apps.ProductConfig',
+    'store',
+    'payment',
 
     
 ]
@@ -72,6 +74,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'Article.views.categories',
                 'Article.views.products',
+               
+                'store.context_processors.store', 
                
             ],
         },
@@ -142,5 +146,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
+# SMTP configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp-mail.outlook.com.tr'
+EMAIL_HOST_USER = "enginunalan@outlook.com.tr"
+EMAIL_HOST_PASSWORD = "nigne72710"
 
