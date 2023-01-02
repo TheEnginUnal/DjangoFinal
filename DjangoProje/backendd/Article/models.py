@@ -8,7 +8,7 @@ class Customer(models.Model):
     
 
 class CustomerAddress(models.Model):
-    customer_id = models.OneToOneField(User, on_delete = models.CASCADE)
+    customer_id = models.ForeignKey(User, on_delete = models.CASCADE)
     address_title = models.CharField(max_length = 50)
     address_line = models.TextField()
     city = models.CharField(max_length = 50) 
@@ -20,7 +20,7 @@ class CustomerAddress(models.Model):
 class Category(models.Model):
     categoryName = models.CharField(max_length=255, db_index=True)
     slug = models.SlugField(max_length=255, unique=True)
-
+    image = models.ImageField(upload_to='media/', default='media/j1.png')
     class Meta:
         verbose_name_plural = 'categories'
     
@@ -37,12 +37,16 @@ class Product(models.Model):
     image = models.ImageField(upload_to='media/')
     in_stock = models.BooleanField(default=True)
     slug = models.SlugField(max_length=255)
+    price = models.IntegerField(default=100)
 
     class Meta:
         verbose_name_plural = 'Products'
 
     def __str__(self):
         return self.productName
+    
+    def get_absolute_url(self):
+        return reverse('article:product_details', args=[self.slug])
 
  
 
@@ -66,24 +70,21 @@ class PaymentDetails(models.Model):
     provider = models.CharField(max_length = 50)
     
 
-class ShoppingPhase(models.Model):
-    customer_id =models.OneToOneField(User, on_delete = models.CASCADE)
-    total = models.DecimalField(max_digits = 10,decimal_places = 2)
 
 class CartItem(models.Model):
     
-    phase_id =models.OneToOneField(to = 'Article.ShoppingPhase', on_delete = models.CASCADE)
+    customer_id =models.ForeignKey(User, on_delete = models.CASCADE)
     product_id = models.IntegerField()
     quantity = models.IntegerField()
 
 class OrderDetails(models.Model):
     
-    customer_id =models.OneToOneField(User, on_delete = models.CASCADE)
+    customer_id =models.ForeignKey(User, on_delete = models.CASCADE)
     total = models.DecimalField(max_digits = 10,decimal_places = 2)
-    payment_id = models.IntegerField()
+    
 
 class OrderItems(models.Model):
-    order_id = models.OneToOneField(to = 'Article.OrderDetails', on_delete = models.CASCADE)
+    order_id = models.ForeignKey(to = 'Article.OrderDetails', on_delete = models.CASCADE)
     product_id = models.IntegerField()
     quantity = models.IntegerField()
 
