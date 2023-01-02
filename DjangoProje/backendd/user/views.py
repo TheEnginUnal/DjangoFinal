@@ -14,7 +14,7 @@ def login_request(request):
 
         if user is not None:
             login(request, user)
-            return render(request, "index.html",{"account": "deneme"})
+            return redirect("home")
         else: 
             return render(request, "user/login.html", {
                 "error" : "Kullanıcı adı veya parolo hatalı"
@@ -31,7 +31,7 @@ def register_request(request):
         lastname = request.POST["lastName"]
         password = request.POST["password"]
         repassword = request.POST["repassword"]
-        phone = request.POST["phone"]
+        
         
 
 
@@ -42,8 +42,8 @@ def register_request(request):
                     "username" : username,
                     "email": email,
                     "firstname" : firstname,
-                    "lastname" : lastname,
-                    "phone" : phone
+                    "lastname" : lastname
+                    
                     
                 })
             else:
@@ -53,25 +53,23 @@ def register_request(request):
                     "username" : username,
                     "email": email,
                     "firstname" : firstname,
-                    "lastname" : lastname,
-                    "phone" : phone
+                    "lastname" : lastname
+                   
 
                 })
                 else:
                     user = User.objects.create_user(username=username,email=email,first_name=firstname,last_name=lastname,
                     password = password)
                     user.save()
-                    return render(request,"user/login.html",{
-                        "message" : "Kayıt Başarılı Lütfen Giriş Yapınız"
-                    })
+                    return redirect("user:login")
         else:
             return render(request,"user/register.html",{
                 "error" : "Parolalar eşleşmiyor",
                 "username" : username,
                     "email": email,
                     "firstname" : firstname,
-                    "lastname" : lastname,
-                    "phone" : phone
+                    "lastname" : lastname
+                    
             })
 
 
@@ -82,21 +80,103 @@ def register_request(request):
     return render(request,'user/register.html')
 
     
-def shopcart(request):
-    return render(request,'user/shopcart.html')
+
 
 def userprofile(request):
-    if request.method=="POST":
-        addres = CustomerAddress()
-        addres.customer_id = User.objects.get(pk =1)
-        addres.address_title = request.POST["address"]
-        addres.address_line = "Deneme"
-        addres.city = request.POST["city"]
-        addres.country = request.POST["country"]
-        addres.postal_code = request.POST["postalCode"]
-        addres.save()
-        return redirect("home")
-    return render(request,"user/userprofile.html")
+    if request.method == "POST":
+        
+
+        username = request.user.username
+        user = User.objects.get(username = username)
+
+        adressexits = CustomerAddress.objects.filter(customer_id = user)
+        if not adressexits:
+            address = CustomerAddress.objects.filter(customer_id = user)
+            email = user.email
+            firstname = user.first_name
+            lastname = user.last_name
+            address_title = request.POST["address_title"]
+            address_line = request.POST["address_line"]
+            city = request.POST["city"]
+            postal_code = request.POST["postalCode"]
+            country = request.POST["country"]
+            addres = CustomerAddress(customer_id = user, address_title = address_title, address_line = address_line,
+            city = city, postal_code = postal_code ,country = country)
+            addres.save()
+            return render(request,"user/userprofile.html", {
+                'email' : email,
+                'firstname' : firstname,
+                'lastname' : lastname,
+                'username' : username,
+                'address_title' : address_title,
+                'address_line' : address_title,
+                'city' : city,
+                'postal_code'  :postal_code,
+                'country' : country
+
+             })
+        else: 
+            addresdel = CustomerAddress.objects.get(customer_id = user)
+            addresdel.delete()
+            email = user.email
+            firstname = user.first_name
+            lastname = user.last_name
+            address_title = request.POST["address_title"]
+            address_line = request.POST["address_line"]
+            city = request.POST["city"]
+            postal_code = request.POST["postalCode"]
+            country = request.POST["country"]
+            addres = CustomerAddress(customer_id = user, address_title = address_title, address_line = address_line,
+            city = city, postal_code = postal_code ,country = country)
+            addres.save()
+            return render(request,"user/userprofile.html", {
+            'email' : email,
+            'firstname' : firstname,
+            'lastname' : lastname,
+            'username' : username,
+            'address_title' : address_title,
+            'address_line' : address_title,
+            'city' : city,
+            'postal_code'  :postal_code,
+            'country' : country
+
+                })
+
+
+       
+    username = request.user.username
+    user = User.objects.get(username = username)
+    email = user.email
+    firstname = user.first_name
+    lastname = user.last_name
+    address = CustomerAddress.objects.filter(customer_id = user)
+    if not address:
+        return render(request,"user/userprofile.html", {
+        'email' : email,
+        'firstname' : firstname,
+        'lastname' : lastname,
+        'username' : username })
+    else : 
+        address = CustomerAddress.objects.get(customer_id = user)
+        address_title = address.address_title
+        address_line = address.address_line
+        city = address.city
+        postal_code = address.postal_code
+        country = address.country    
+        return render(request,"user/userprofile.html", {
+         'email' : email,
+            'firstname' : firstname,
+            'lastname' : lastname,
+            'username' : username,
+            'address_title' : address_title,
+            'address_line' : address_line,
+             'city' : city,
+            'postal_code'  :postal_code,
+            'country' : country
+        })
+
+
+    
 
 
 
